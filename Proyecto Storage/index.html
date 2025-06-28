@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Participantes del Evento</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>📋 Lista de Participantes</h1>
+    <h1>¡Bienvenido al Mega Evento de Emprendedores 2025!</h1>
+    <p>
+      Aquí podrás registrar a los participantes y conocer más sobre sus
+      emprendimientos.
+    </p>
+    <p>
+      Si tienes alguna duda, puedes contactarnos a través de nuestro correo
+      electrónico:
+      <a href="grupo10@mail.com">GRUPO 10</a>
+    </p>
+
+    <div id="saludo"></div>
+
+    <section id="preguntaStorage">
+      <label for="diaEvento">¿En qué día del evento querés asistir?</label>
+      <select id="diaEvento" required>
+        <option value="" disabled selected>Seleccioná un día</option>
+        <option value="viernes">Viernes</option>
+        <option value="sabado">Sábado</option>
+        <option value="domingo">Domingo</option>
+      </select>
+      <button onclick="guardarEventoFavorito()">Guardar</button>
+    </section>
+
+    <form id="formulario">
+      <h2>Agregar nuevo participante</h2>
+      <input type="text" id="nombre" placeholder="Nombre" required />
+      <input type="number" id="edad" placeholder="Edad" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <h2>Datos del Emprendimiento</h2>
+      <input
+        type="text"
+        id="nombre_Emprendimiento"
+        placeholder="Nombre del Emprendimiento"
+        required
+      />
+      <section id="datosEmprendimiento">
+        <label><strong>Rubro del emprendimiento:</strong></label>
+        <div>
+          <label>
+            <input type="radio" name="rubro" value="Tecnología" required />
+            Tecnología
+          </label>
+          <label>
+            <input type="radio" name="rubro" value="Agropecuaria/Ganadera" />
+            Agropecuaria/Ganadera
+          </label>
+          <label>
+            <input type="radio" name="rubro" value="Comercio" />
+            Comercio
+          </label>
+          <label>
+            <input type="radio" name="rubro" value="Manualidades" />
+            Manualidades
+          </label>
+          <label>
+            <input type="radio" name="rubro" value="Educación" />
+            Educación
+          </label>
+          <label>
+            <input type="radio" name="rubro" value="Deportivo" />
+            Deportivo
+          </label>
+          <label>
+            <input type="radio" name="rubro" value="Turístico" />
+            Turístico
+          </label>
+        </div>
+      </section>
+      <button type="submit">Agregar participante</button>
+    </form>
+
+    <h3>Participantes registrados:</h3>
+    <ul id="listaUsuarios"></ul>
+    <footer>
+      <p>© 2025 Evento de Emprendedores./// Desarrollado por:</p>
+
+      <img src="/Grupo_10.png" alt="logo grupo 10" style="width: 110px" />
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
