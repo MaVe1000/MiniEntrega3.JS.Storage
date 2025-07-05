@@ -1,4 +1,5 @@
-let usuarios = [
+// Cargar usuarios desde localStorage o usar los de ejemplo
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [
   {
     id: 1,
     nombre: "Juan",
@@ -13,31 +14,31 @@ let usuarios = [
     edad: 30,
     email: "ana@mail.com",
     nombre_Emprendimiento: "A.P. Pyme",
-    rubro: "comercio",
+    rubro: "Comercio",
   },
 ];
 
-// 2️⃣ Mostrar saludo personalizado si hay dato en localStorage
-const saludoInicial = localStorage.getItem("eventoFavorito"); // Obtenemos el día del evento guardado
+// Mostrar saludo personalizado si hay dato en localStorage
+const saludoInicial = localStorage.getItem("eventoFavorito");
 if (saludoInicial) {
   document.getElementById("saludo").innerText = `🎉 ¡Bienvenid@ al M.E.E.!
    Tu día confirmado de asistencia es para el ${saludoInicial}.`;
 } else {
   document.getElementById("saludo").innerText = `🎉 ¡Bienvenid@ al M.E.E.!
-   Por favor, seleccioná un día para confirmar tu asistencia.`; // Mensaje inicial si no hay día guardado
+   Por favor, seleccioná un día para confirmar tu asistencia.`;
 }
 mostrarUsuarios();
 
-// 1️⃣ Guardar evento favorito en localStorage
+// Guardar evento favorito en localStorage
 function guardarEventoFavorito() {
   const diaSeleccionado = document.getElementById("diaEvento").value;
   if (diaSeleccionado) {
-    localStorage.setItem("eventoFavorito", diaSeleccionado); //se guardara y mostrará en el localStorage
+    localStorage.setItem("eventoFavorito", diaSeleccionado);
     alert(
       `¡Gracias! Registraste tu asistencia para el día: ${diaSeleccionado}`
     );
     console.log(`Evento favorito guardado: ${diaSeleccionado} en localStorage`);
-    document.getElementById("diaEvento").value = ""; // Limpiar el campo
+    document.getElementById("diaEvento").value = "";
     document.getElementById(
       "saludo"
     ).innerText = `🎉 ¡Bienvenid@ al M.E.E! Tu día confirmado de asistencia es para el ${diaSeleccionado}.`;
@@ -53,11 +54,11 @@ function mostrarUsuarios() {
   usuarios.forEach((usuario) => {
     const li = document.createElement("li");
     li.innerText = `${usuario.nombre} _ Emprendimiento: ${usuario.nombre_Emprendimiento}. _Rubro: ${usuario.rubro}.`;
-    lista.appendChild(li);
+    lista.appendChild(li);//así lo agregamos a la lista visual de la página
   });
 }
 
-//Validar y obtener rubro de emprendimiento seleccionado
+// Validar y obtener rubro de emprendimiento seleccionado
 function validarRubro() {
   const rubro = document.getElementById("rubro").value;
   if (rubro === "ninguno") {
@@ -66,7 +67,7 @@ function validarRubro() {
   return;
 }
 
-// Agregar nuevo usuario desde el formulario
+// Agregar nuevo usuario desde lo que el usuario ingrese en el formulario
 document.getElementById("formulario").addEventListener("submit", function (e) {
   e.preventDefault();
   const nombre = document.getElementById("nombre").value;
@@ -87,6 +88,10 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
     rubro,
   };
   usuarios.push(nuevoUsuario);
+
+  // Guardar usuarios en localStorage
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
   mostrarUsuarios();
 
   // Limpiar form
