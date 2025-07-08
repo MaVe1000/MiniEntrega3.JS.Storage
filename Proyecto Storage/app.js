@@ -54,7 +54,7 @@ function mostrarUsuarios() {
   usuarios.forEach((usuario) => {
     const li = document.createElement("li");
     li.innerText = `${usuario.nombre} _ Emprendimiento: ${usuario.nombre_Emprendimiento}. _Rubro: ${usuario.rubro}.`;
-    lista.appendChild(li);//así lo agregamos a la lista visual de la página
+    lista.appendChild(li);
   });
 }
 
@@ -67,18 +67,47 @@ function validarRubro() {
   return;
 }
 
-// Agregar nuevo usuario desde lo que el usuario ingrese en el formulario
+// Agregar nuevo usuario desde el formulario con validaciones
 document.getElementById("formulario").addEventListener("submit", function (e) {
   e.preventDefault();
-  const nombre = document.getElementById("nombre").value;
-  const edad = parseInt(document.getElementById("edad").value);
-  const email = document.getElementById("email").value;
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const edad = parseInt(document.getElementById("edad").value.trim());
+  const email = document.getElementById("email").value.trim();
   const nombre_Emprendimiento = document.getElementById(
     "nombre_Emprendimiento"
-  ).value;
+  ).value.trim();
   const rubro =
     document.querySelector("input[name='rubro']:checked")?.value ||
     validarRubro();
+
+  // Validaciones
+  if (nombre === "") {
+    alert("El nombre no puede estar vacío.");
+    return;
+  }
+
+  if (nombre.length < 3) {
+    alert("El nombre debe tener al menos 3 letras.");
+    return;
+  }
+
+  const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+  if (!regexNombre.test(nombre)) {
+    alert("El nombre no debe contener números ni caracteres especiales.");
+    return;
+  }
+
+  if (isNaN(edad) || edad <= 18) {
+    alert("Por favor ingresá una edad válida mayor a 18.");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    alert("El email debe contener un '@'.");
+    return;
+  }
+
   const nuevoUsuario = {
     id: usuarios.length + 1,
     nombre,
@@ -87,6 +116,7 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
     nombre_Emprendimiento,
     rubro,
   };
+
   usuarios.push(nuevoUsuario);
 
   // Guardar usuarios en localStorage
